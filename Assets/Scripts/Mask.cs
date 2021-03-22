@@ -6,8 +6,9 @@ public class Mask : MonoBehaviour
 
     
 {
-    public float speed = 40;
-    private GameObject maskRB;
+    public float speed = 0.1f;
+    public Vector3 path;
+    //private GameObject maskRB;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,6 @@ public class Mask : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.GetComponent<Rigidbody>().velocity = speed * this.gameObject.transform.forward;
+        this.GetComponent<Rigidbody>().velocity = speed * path;
     }
 }

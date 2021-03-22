@@ -6,7 +6,7 @@ using UnityEngine;
 public class Shooter : MonoBehaviour
 {
 
-    public float speed = 40f;
+    public float speed = 0.1f;
     public GameObject mask;
     public Transform barrel;
     // public AudioSource audioSource;
@@ -14,7 +14,10 @@ public class Shooter : MonoBehaviour
     public PathCreator pathCreator;
     float distanceTravelled;
 
-    
+    public void Start()
+    {
+       // Fire(); // use this to test in unity without having to build for quest
+    }
     public void Fire()
     {
         //GameObject spawnedMask = Instantiate(mask, barrel.position, barrel.rotation);
@@ -24,9 +27,12 @@ public class Shooter : MonoBehaviour
         // audioSource.PlayOneShot(audioClip);
         //Destroy(spawnedMask, 2);
 
-        GameObject instMask = Instantiate(mask, transform.position, Quaternion.identity) as GameObject;
-        Rigidbody instMaskRigidBody = instMask.GetComponent<Rigidbody>();
-        instMaskRigidBody.AddForce(Vector3.forward * speed);
+        GameObject instMask = Instantiate(mask, this.transform.position, this.transform.rotation) as GameObject;
+        instMask.gameObject.transform.TransformDirection(this.transform.right);
+        instMask.GetComponent<Mask>().path = -this.transform.right;  // set correct direction of line of fire for mask 
+        instMask.GetComponent<Mask>().speed = this.speed; // set speed of mask from shooter
+        //Rigidbody instMaskRigidBody = instMask.GetComponent<Rigidbody>();
+        //instMaskRigidBody.AddForce(transform.forward * speed);
 
     }
     
